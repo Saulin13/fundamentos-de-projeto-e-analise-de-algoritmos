@@ -1,0 +1,70 @@
+<mxfile host="app.diagrams.net" modified="2025-08-27T00:00:00.000Z" agent="KaratsubaFlow/1.0" version="22.0.0" editor="5.0" type="device">
+  <diagram id="karatsuba-flow" name="Fluxo Karatsuba">
+    <mxGraphModel dx="1280" dy="720" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Start -->
+        <mxCell id="start" value="Início (entrada da função)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="80" y="60" width="220" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Normalize -->
+        <mxCell id="normalize" value="Normalização do Sinal&#10;sign = (x&lt;0) XOR (y&lt;0)&#10;x, y = abs(x), abs(y)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="80" y="160" width="300" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- Decision -->
+        <mxCell id="decision" value="Caso Base?&#10;(x &lt; 10) OR (y &lt; 10)" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="120" y="280" width="220" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- Return direct -->
+        <mxCell id="ret_direct" value="Retorna: sign * (x * y)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="20" y="460" width="260" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Decompose -->
+        <mxCell id="decompose" value="Decomposição&#10;n = max(dígitos de x,y)&#10;m = n // 2; base = 10^m&#10;a,b = divmod(x, base)&#10;c,d = divmod(y, base)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="360" y="280" width="360" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- Recursive multiplications -->
+        <mxCell id="rec_mults" value="3 multiplicações recursivas&#10;z2 = K(a,c)&#10;z0 = K(b,d)&#10;z1 = K(a+b,c+d) - z2 - z0" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="360" y="440" width="360" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- Recompose -->
+        <mxCell id="recompose" value="Recomposição&#10;result = z2*base^2 + z1*base + z0&#10;return sign * result" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="360" y="600" width="360" height="100" as="geometry"/>
+        </mxCell>
+
+        <!-- End -->
+        <mxCell id="end" value="Fim" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="500" y="740" width="120" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Edges -->
+        <mxCell id="e1" edge="1" parent="1" source="start" target="normalize" style="endArrow=classic;strokeColor=#6c8ebf;"/>
+        <mxCell id="e2" edge="1" parent="1" source="normalize" target="decision" style="endArrow=classic;"/>
+        <mxCell id="e3" edge="1" parent="1" source="decision" target="ret_direct" style="endArrow=classic;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e3_label" value="Sim" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="110" y="430" width="40" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="decision" target="decompose" style="endArrow=classic;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e4_label" value="Não" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="300" y="340" width="40" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="ret_direct" target="end" style="endArrow=classic;"/>
+        <mxCell id="e6" edge="1" parent="1" source="decompose" target="rec_mults" style="endArrow=classic;"/>
+        <mxCell id="e7" edge="1" parent="1" source="rec_mults" target="recompose" style="endArrow=classic;"/>
+        <mxCell id="e8" edge="1" parent="1" source="recompose" target="end" style="endArrow=classic;"/>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
